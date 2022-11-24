@@ -1,0 +1,20 @@
+{% extends 'theme.html' %}
+
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock navbar %}
+
+{% block title %}
+Article Details
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="row">
+
+    {% include 'blog/_article.html' %}
+
+</div>
+
+{% endblock content %}
