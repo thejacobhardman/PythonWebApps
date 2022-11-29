@@ -14,8 +14,12 @@
 <body class=" bg-dark text-light">
 
     {% block navbar %}
-    {% include 'navbar.html' %}
+    {% include './components/navbar.html' %}
     {% endblock navbar %}
+
+    {% block header %}
+    {% include './components/_header.html' %}
+    {% endblock header %}
 
     <div class="container m-5">
         <div class="card bg-light text-dark p-5">
@@ -27,9 +31,13 @@
             {% block content %}
             <h2>No Block Defined</h2>
             {% endblock content %}
-
         </div>
     </div>
+
+    {% block footer %}
+    {% include './components/_footer.html' %}
+    {% endblock footer %}
+
 </body>
 
 </html>

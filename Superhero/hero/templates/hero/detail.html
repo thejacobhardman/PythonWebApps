@@ -1,64 +1,57 @@
 {% extends 'theme.html' %}
 
-{% block navbar %}
-{% include 'navbar.html' %}
-{% endblock navbar %}
-
 {% block title %}
 Hero Details
 {% endblock title %}
 
-
 {% block content %}
 
-<div class="row">
+<div class="container">
 
-    <div class="card col-lg">
-
-        <div class="card-header person">
-            HERO
-        </div>
+    <div class="card col-lg p-4">
+        <h2 class="card-title">{{ object.name }}</h2>
         <div class="card-body">
-
-
-            <table class="table">
-                <tr>
-                    <td>Name</td>
-                    <td><a href="/{{ object.pk }}/">{{ object.name }}</a></td>
-                </tr>
-                <tr>
-                    <td>Identity</td>
-                    <td>{{ object.identity }}</td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td>{{ object.description }}</td>
-                </tr>
-                <tr>
-                    <td>Image</td>
-                    <td><img src="{{ object.image }}" alt="Hero's Image"></td>
-                </tr>
-                <tr>
-                    <td>Strengths:</td>
-                    <td>{{ object.strengths }}</td>
-                </tr>
-                <tr>
-                    <td>Weaknesses:</td>
-                    <td>{{ object.weaknesses }}</td>
-                </tr>
-                <tr>
-                    <td>Record Created By:</td>
-                    <td>{{ object.author }}</td>
-                </tr>
-            </table>
-
-            <p>
-                <a href="/" class="btn btn-success m-5">Home</a>
-                <a href="/add" class="btn btn-success m-5">Add New Hero</a>
-            </p>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab" aria-controls="about" aria-selected="true">About</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bio" type="button" role="tab" aria-controls="bio" aria-selected="false">Bio</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="false">Details</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#meta" type="button" role="tab" aria-controls="meta" aria-selected="false">Metadata</button>
+                </li>
+            </ul>
         </div>
-
+        <div class="card-text">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                    <p>Name: {{ object.identity }}</p>
+                    <p>Description: {{ object.description }}</p>
+                </div>
+                <div class="tab-pane fade" id="bio" role="tabpanel" aria-labelledby="bio-tab">
+                    <p>Biography:</p>
+                </div>
+                <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+                    <p>Strengths: {{ object.strengths }}</p>
+                    <p>Weaknesses: {{ object.weaknesses }}</p>
+                </div>
+                <div class="tab-pane fade" id="meta" role="tabpanel" aria-labelledby="meta-tab">
+                    <p>Record created by: {{ object.author }}</p>
+                </div>
+            </div>
+        </div>
+        <img src="{{ object.image }}" class="card-img" alt="Hero's Image">
     </div>
+
+    <p>
+        <a href="/" class="btn btn-success m-5">Home</a>
+        <a href="/{{ object.pk }}/" class="btn btn-success m-5">Edit Hero</a>
+        <a href="/add" class="btn btn-success m-5">Add New Hero</a>
+    </p>
 
 </div>
 

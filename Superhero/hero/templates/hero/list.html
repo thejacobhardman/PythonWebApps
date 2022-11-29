@@ -1,40 +1,27 @@
 {% extends 'theme.html' %}
 
-{% block navbar %}
-{% include 'navbar.html' %}
-{% endblock navbar %}
-
 {% block title %}
 List of Heroes
 {% endblock title %}
-
 
 {% block content %}
 
 <div class="row">
 
+    {% for hero in object_list %}
     <div class="card col-lg">
-
-        <table class="table table-hover">
-            <tr>
-                <th>Name</th>
-                <th>ID</th>
-            </tr>
-
-            {% for hero in object_list %}
-            <tr>
-                <td><a href="/{{ hero.pk }}">{{ hero.name }}</a></td>
-                <td>{{ hero.identity }}</td>
-            </tr>
-            {% endfor %}
-
-        </table>
-
-        <p>
-            <a href="/add" class="btn btn-success m-5">Add New Hero</a>
-        </p>
-
+        <div class="card-body">
+            <a href="/{{ hero.pk }}"><img src="{{hero.image}}" class="card-img" alt="Hero's Profile Image"/></a>
+            <div class="card-title"><h5>{{ hero.name }}</h5></div>
+            <div class="card-text">{{ hero.identity }}</div>
+            <a href="/{{ hero.pk }}" class="btn btn-primary">View Hero</a>
+        </div>
     </div>
+    {% endfor %}
+
+    <p>
+        <a href="/add" class="btn btn-success m-5">Add New Hero</a>
+    </p>
 
 </div>
 
