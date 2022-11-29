@@ -1,0 +1,8 @@
+[
+    {
+        "id": 3,
+        "title": "Hello World",
+        "body": "This is my first article!",
+        "author_id": 1
+    }
+]
