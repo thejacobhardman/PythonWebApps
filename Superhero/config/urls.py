@@ -1,6 +1,8 @@
 from django.urls import path, include
 from hero.views import *
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns =  [
     # Superhero urls
@@ -17,10 +19,18 @@ urlpatterns =  [
     path('article/<int:pk>/', ArticleEditView.as_view(), name='article_edit'),
     path('article/<int:pk>/delete', ArticleDeleteView.as_view(), name='article_delete'),
 
+    # Photo
+    #path('photo/carousel', PhotoCarouselView.as_view()),
+    path('photo/', PhotoListView.as_view(), name='photo_list'),
+    path('photo/<int:pk>', PhotoDetailView.as_view(), name='photo_detail'),
+    path('photo/add', PhotoCreateView.as_view(), name='photo_add'),
+    path('photo/<int:pk>/', PhotoUpdateView.as_view(), name='photo_edit'),
+    path('photo/<int:pk>/delete', PhotoDeleteView.as_view(), name='photo_delete'),
+
     # Accounts
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', SignUpView.as_view(), name='signup'),
 
     # Admin
     path('admin/', admin.site.urls),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

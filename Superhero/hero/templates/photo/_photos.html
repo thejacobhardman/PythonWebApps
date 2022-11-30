@@ -1,0 +1,37 @@
+<div class="card col-lg">
+
+    <div class="card-body" align="center">
+
+        <div id="carouselExampleControls" class="carousel slide col-sm-6" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for photo in photos %}
+                    {% if photo.id == 1 %} 
+                    <div class="carousel-item active">
+                        <a href="/photo/{{ photo.pk }}"><img src="/media/{{ photo.image }}" style="object-fit:contain; width:200px; height:300px;" class="d-block w-100 mx-auto" alt="..."></a>
+                        <h4 class="text-center">{{ photo.title }}</h4>
+                    </div>
+                    {% endif %}
+                    {% if photo.id != 1 %} 
+                    <div class="carousel-item">
+                        <a href="/photo/{{ photo.pk }}"><img src="/media/{{ photo.image }}" style="object-fit:contain; width:200px; height:300px;" class="d-block w-100 mx-auto" alt="..."></a>
+                        <h4 class="text-center">{{ photo.title }}</h4>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+
+        <p align="left">
+            <a href="/photo/add" class="btn btn-success m-5">Add New Photo</a>
+        </p>
+    </div>
+
+</div>

@@ -1,28 +1,100 @@
 {% extends 'theme.html' %}
 
 {% block title %}
-List of Heroes
+Homepage
 {% endblock title %}
 
 {% block content %}
 
 <div class="row">
 
-    {% for hero in object_list %}
-    <div class="card col-lg">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="heroes-tab" data-bs-toggle="tab" data-bs-target="#heroes" type="button" role="tab" aria-controls="heroes" aria-selected="true">Heroes</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button" role="tab" aria-controls="photos" aria-selected="false">Photos</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="articles-tab" data-bs-toggle="tab" data-bs-target="#articles" type="button" role="tab" aria-controls="article" aria-selected="false">Articles</button>
+        </li>
+    </ul>
+
+    <div class="card col-lg p-4">
         <div class="card-body">
-            <a href="/{{ hero.pk }}"><img src="{{hero.image}}" class="card-img" alt="Hero's Profile Image"/></a>
-            <div class="card-title"><h5>{{ hero.name }}</h5></div>
-            <div class="card-text">{{ hero.identity }}</div>
-            <a href="/{{ hero.pk }}" class="btn btn-primary">View Hero</a>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="heroes" role="tabpanel" aria-labelledby="heroes-tab">
+                    <h4>Hero List</h4>
+                    <div class="row">
+                        {% for hero in hero_list %}
+                        <div class="card col-lg">
+                            <div class="card-body">
+                                <a href="/{{ hero.pk }}"><img src="/media/{{ hero.image.image }}" class="card-img" alt="Hero's Profile Image"/></a>
+                                <div class="card-title"><h5>{{ hero.name }}</h5></div>
+                                <div class="card-text">{{ hero.identity }}</div>
+                                <a href="/{{ hero.pk }}" class="btn btn-primary">View Hero</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p>
+                        <a href="/add" class="btn btn-success m-5">Add New Hero</a>
+                    </p>
+                </div>
+                <div class="tab-pane fade" id="photos" role="tabpanel" aria-labelledby="photos-tab">
+                    <h4>Photo Gallery</h4>
+                    <div align="center">
+                        <div id="carouselExampleControls" class="carousel slide col-sm-6" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for photo in photo_list %}
+                                    {% if photo.id == 1 %} 
+                                    <div class="carousel-item active">
+                                        <a href="/photo/{{ photo.pk }}"><img src="/media/{{ photo.image }}" style="object-fit:contain; width:200px; height:300px;" class="d-block w-100 mx-auto" alt="..."></a>
+                                        <h4 class="text-center">{{ photo.title }}</h4>
+                                    </div>
+                                    {% endif %}
+                                    {% if photo.id != 1 %} 
+                                    <div class="carousel-item">
+                                        <a href="/photo/{{ photo.pk }}"><img src="/media/{{ photo.image }}" style="object-fit:contain; width:200px; height:300px;" class="d-block w-100 mx-auto" alt="..."></a>
+                                        <h4 class="text-center">{{ photo.title }}</h4>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                
+                    <p>
+                        <a href="/photo/add" class="btn btn-success m-5">Add New Photo</a>
+                    </p>
+                </div>
+                <div class="tab-pane fade" id="articles" role="tabpanel" aria-labelledby="articles-tab">
+                    <h4>Article List</h4>
+                    <div class="row">
+                        {% for article in article_list %}
+                        <div class="card col-lg">
+                            <div class="card-body">
+                                <div class="card-title"><h5>{{ article.title }}</h5></div>
+                                <a href="/article/{{ article.pk }" class="btn btn-primary">View Article</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p>
+                        <a href="photo/article/add" class="btn btn-success m-5">Add New Article</a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
-    {% endfor %}
-
-    <p>
-        <a href="/add" class="btn btn-success m-5">Add New Hero</a>
-    </p>
-
 </div>
 
 {% endblock content %}

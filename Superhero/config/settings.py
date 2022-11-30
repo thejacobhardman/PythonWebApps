@@ -83,12 +83,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         # for running on digital ocean
-        'ENGINE': environ.get('DATABASE_ENGINE'),
-        'NAME': environ.get('DATABASE_NAME'),
+        # 'ENGINE': environ.get('DATABASE_ENGINE'),
+        # 'NAME': environ.get('DATABASE_NAME'),
 
         # for running on local server
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -152,6 +152,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+# Upload location for images
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Static files
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = 'static_assets/'
