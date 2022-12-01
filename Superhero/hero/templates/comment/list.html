@@ -1,0 +1,34 @@
+{% extends 'theme.html' %}
+
+{% block title %}
+Comment
+{% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="card col-lg">
+
+        <table class="table table-hover">
+            <tr>
+                <th>Title:</th>
+                <th>Text:</th>
+            </tr>
+
+            {% for comment in object_list %}
+            <tr>
+                <td><a href="/comment/{{ comment.pk }}">{{ comment.title }}</a></td>
+                <td>{{ comment.text }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+        <p>
+            <a href="/comment/add" class="btn btn-success m-5">Add New Comment</a>
+        </p>
+
+    </div>
+</div>
+
+{% endblock content %}

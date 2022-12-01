@@ -19,8 +19,14 @@ urlpatterns =  [
     path('article/<int:pk>/', ArticleEditView.as_view(), name='article_edit'),
     path('article/<int:pk>/delete', ArticleDeleteView.as_view(), name='article_delete'),
 
+    # Comment urls
+    path('comments/', CommentListView.as_view(), name='comment_list'),
+    path('comment/<int:pk>', CommentDetailView.as_view(), name='comment_detail'),
+    path('comment/add', CommentCreateView.as_view(), name='comment/add'),
+    path('comment/<int:pk>/', CommentEditView.as_view(), name='comment_edit'),
+    path('comment/<int:pk>/delete', CommentDeleteView.as_view(), name='comment_delete'),
+
     # Photo
-    #path('photo/carousel', PhotoCarouselView.as_view()),
     path('photo/', PhotoListView.as_view(), name='photo_list'),
     path('photo/<int:pk>', PhotoDetailView.as_view(), name='photo_detail'),
     path('photo/add', PhotoCreateView.as_view(), name='photo_add'),

@@ -1,18 +1,30 @@
-<div class="card col-lg">
+<div class="row">
+    <div class="card col-lg">
 
-    <table class="table">
-        <tr>
-            <td>Title</td>
-            <td><a href="/article/{{ object.pk }}/">{{ object.title }}</a></td>
-        </tr>
-        <tr>
-            <td>Body</td>
-            <td>{{ object.body }}</td>
-        </tr>
-        <tr>
-            <td>Author</td>
-            <td>{{ object.author }}</td>
-        </tr>
-    </table>
+        <table class="table">
+            <tr>
+                <td>Title:</td>
+                <td><a href="/article/{{ object.pk }}/">{{ object.title }}</a></td>
+            </tr>
+            <tr>
+                <td>Body:</td>
+                <td>{{ object.body }}</td>
+            </tr>
+            <tr>
+                <td>Author:</td>
+                <td>{{ object.author }}</td>
+            </tr>
+            <tr>
+                <td>Comments:</td>
+            </tr>
+            {% for comment in object.comments %}
+            <tr>
+                <td>{{ comment.text }} - {{ comment.author }} - Posted at {{ comment.date }}</td>
+            </tr>
+            {% endfor %}
+        </table>
 
+        <a href="/comment/add" class="btn btn-primary">Comment</a>
+    
+    </div>
 </div>

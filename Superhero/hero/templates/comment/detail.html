@@ -1,0 +1,27 @@
+{% extends 'theme.html' %}
+
+{% block title %}
+Comment
+{% endblock title %}
+
+{% block content %}
+
+<div class="card col-lg">
+
+    <div class="card-header message">
+        Comment by {{ object.author }}
+    </div>
+    <div class="card-body">
+        <div class="card-title">
+            <h4>{{ object.title }}</h4>
+        </div>
+        <div class="card-text">
+            <p>{{ object.text }}</p>
+            <br/>
+            <p>Posted at: {{ object.date }}</p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

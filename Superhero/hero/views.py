@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, RedirectView, TemplateView
-from .models import Hero, Article, Photo
+from .models import Hero, Article, Comment, Photo
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -53,7 +53,8 @@ class ArticleDetailView(DetailView):
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     template_name = 'blog/add.html'
     model = Article
-    fields = "__all__"
+    fields = ("title", "body")
+    success_url = reverse_lazy('article_list')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -67,6 +68,40 @@ class ArticleEditView(LoginRequiredMixin, UpdateView):
 class ArticleDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'blog/delete.html'
     model = Article
+    success_url = reverse_lazy('article_list')
+
+# Comment Views
+class CommentListView(ListView):
+    template_name = 'comment/list.html'
+    model = Comment
+    context_object_name = "comments"
+
+class CommentDetailView(DetailView):
+    template_name = 'comment/detail.html'
+    model = Comment
+    context_object_name = "comment"
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'comment/add.html'
+    model = Comment
+    fields = "__all__"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class CommentEditView(LoginRequiredMixin, UpdateView):
+    template_name = 'comment/edit.html'
+    model = Comment
+    fields = "__all__"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'comment/delete.html'
+    model = Comment
     success_url = reverse_lazy('article_list')
 
 # Account Views
@@ -83,25 +118,6 @@ class PhotoListView(ListView):
     template_name = 'photo/list.html'
     model = Photo
     context_object_name = 'photos'
-
-# class PhotoCarouselView(TemplateView):
-#     template_name = 'photo/carousel.html'
-
-#     def get_context_data(self, **kwargs):
-#         photos = Author.get_me(self.request.user).photos
-#         carousel = carousel_data(photos)
-#         return dict(title='Carousel View', carousel=carousel)
-
-
-# def carousel_data(photos):
-
-#     def photo_data(id, image):
-#         x = dict(image_url=f"/media/{image}", id=str(id), label=f"{image} {id}")
-#         if id == 0:
-#             x.update(active="active", aria='aria-current="true"')
-#         return x
-
-#     return [photo_data(id, photo.image) for id, photo in enumerate(photos)]
 
 class PhotoDetailView(DetailView):
     template_name = 'photo/detail.html'

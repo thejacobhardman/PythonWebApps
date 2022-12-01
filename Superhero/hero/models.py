@@ -35,9 +35,26 @@ class Article(models.Model):
     title = models.CharField(max_length=100)
     body = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, default="None")
+    
+    @property
+    def comments(self):
+        return Comment.objects.filter(article=self)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse_lazy('article_list')
+
+class Comment(models.Model):
+    title = models.CharField(max_length=100)
+    text = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, editable=False, default="None")
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text
+
+    def get_absolute_url(self):
+        return reverse_lazy('comment_list')
